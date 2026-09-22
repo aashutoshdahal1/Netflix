@@ -1,0 +1,58 @@
+# robots.txt for fmovies.in.net (Watchio)
+User-agent: *
+
+# Allow SEO-friendly content pages (INDEXABLE)
+Allow: /movie/*/review
+Allow: /movie/*/cast
+Allow: /movie/*/ending-explained
+Allow: /movie/*/similar
+Allow: /series/*/review
+Allow: /series/*/cast
+Allow: /series/*/ending-explained
+Allow: /series/*/similar
+Allow: /browse/
+Allow: /search
+
+# Disallow streaming/player pages (NOINDEX)
+Disallow: /player/
+Disallow: /embed/
+Disallow: /watch/
+
+# Disallow admin and API
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+
+# Allow homepage
+Allow: /$
+
+# Sitemap location
+Sitemap: https://fmovies.in.net/sitemap.xml
+
+# Crawl-delay (helps with server load)
+Crawl-delay: 1
+
+# Major search engines
+User-agent: Googlebot
+Allow: /movie/*/review
+Allow: /movie/*/cast
+Allow: /movie/*/ending-explained
+Allow: /movie/*/similar
+Allow: /series/*/review
+Allow: /series/*/cast
+Allow: /series/*/ending-explained
+Allow: /series/*/similar
+Disallow: /player/
+Disallow: /watch/
+
+User-agent: Bingbot
+Allow: /movie/*/review
+Allow: /movie/*/cast
+Allow: /movie/*/ending-explained
+Allow: /movie/*/similar
+Allow: /series/*/review
+Allow: /series/*/cast
+Allow: /series/*/ending-explained
+Allow: /series/*/similar
+Disallow: /player/
+Disallow: /watch/
