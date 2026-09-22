@@ -2,18 +2,18 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import styles from "./Player.module.css";
 
 export default function PlayerClient() {
   const { type, id } = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const mediaType = type || "movie";
 
   const [details, setDetails] = useState(null);
-  const [selectedSeason, setSelectedSeason] = useState(1);
-  const [selectedEpisode, setSelectedEpisode] = useState(1);
-  const [seasonDetails, setSeasonDetails] = useState(null);
+  const [selectedSeason] = useState(Number(searchParams.get("season")) || 1);
+  const [selectedEpisode] = useState(Number(searchParams.get("episode")) || 1);
   const [loading, setLoading] = useState(true);
   const [controlsVisible, setControlsVisible] = useState(true);
   const [infoOpen, setInfoOpen] = useState(false);
@@ -35,13 +35,6 @@ export default function PlayerClient() {
       .catch(() => setLoading(false));
   }, [id, mediaType]);
 
-  useEffect(() => {
-    if (mediaType !== "tv" || !selectedSeason) return;
-    fetch(`https://api.themoviedb.org/3/tv/${id}/season/${selectedSeason}?language=en-US`, { headers })
-      .then((r) => r.json())
-      .then((d) => { setSeasonDetails(d); setSelectedEpisode(1); })
-      .catch(console.error);
-  }, [selectedSeason, id, mediaType]);
 
   const resetHideTimer = useCallback(() => {
     setControlsVisible(true);
@@ -53,6 +46,19 @@ export default function PlayerClient() {
     resetHideTimer();
     return () => clearTimeout(hideTimer.current);
   }, [resetHideTimer]);
+
+  // Save watched episode to localStorage when TV episode starts
+  useEffect(() => {
+    if (mediaType !== "tv") return;
+    try {
+      const key = `watchio_watched_${id}`;
+      const all = JSON.parse(localStorage.getItem(key) || "{}");
+      const eps = new Set(all[selectedSeason] ?? []);
+      eps.add(selectedEpisode);
+      all[selectedSeason] = Array.from(eps);
+      localStorage.setItem(key, JSON.stringify(all));
+    } catch {}
+  }, [id, mediaType, selectedSeason, selectedEpisode]);
 
   // Block popup ads from the iframe
   useEffect(() => {
@@ -125,7 +131,6 @@ export default function PlayerClient() {
 
         <div className={styles.topTitle}>
           {title}
-          {mediaType === "tv" && ` · S${selectedSeason} E${selectedEpisode}`}
         </div>
 
         <div className={styles.topActions}>
@@ -159,40 +164,9 @@ export default function PlayerClient() {
         className={styles.playerIframe}
         style={{ pointerEvents: infoOpen ? "none" : "auto" }}
       />
+      {/* Cover the embed's title bar overlay */}
+      <div className={styles.iframeTitleCover} />
 
-      {/* TV episode selector bar */}
-      {mediaType === "tv" && details && (
-        <div className={`${styles.episodeBar} ${styles.visible}`}>
-          <div className={styles.episodeBarInner}>
-            <select
-              value={selectedSeason}
-              onChange={(e) => setSelectedSeason(Number(e.target.value))}
-              className={styles.select}
-            >
-              {details.seasons
-                ?.filter((s) => s.season_number > 0)
-                .map((s) => (
-                  <option key={s.id} value={s.season_number}>
-                    Season {s.season_number}
-                  </option>
-                ))}
-            </select>
-
-            <div className={styles.episodePills}>
-              {seasonDetails?.episodes?.map((ep) => (
-                <button
-                  key={ep.id}
-                  className={`${styles.episodePill} ${selectedEpisode === ep.episode_number ? styles.episodePillActive : ""}`}
-                  onClick={() => setSelectedEpisode(ep.episode_number)}
-                >
-                  <span className={styles.epNum}>E{ep.episode_number}</span>
-                  <span className={styles.epName}>{ep.name}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Info panel */}
       {infoOpen && (

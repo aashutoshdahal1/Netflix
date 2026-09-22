@@ -221,6 +221,194 @@
   border-color: #fff;
 }
 
+/* ── TV header (poster thumb + title side by side) ── */
+.tvHeader {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.tvPosterThumb {
+  flex-shrink: 0;
+  width: 90px;
+  height: 130px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+.tvPosterImg {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.tvHeaderInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.tvBadges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
+  padding: 2px 7px;
+  letter-spacing: 0.3px;
+}
+
+.tvYear {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+/* ── Season dropdown ── */
+.seasonDropdownWrap {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.seasonDropdown {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: #1e1e1e;
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 50px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.2s;
+}
+
+.seasonDropdown:active {
+  border-color: rgba(255,255,255,0.3);
+}
+
+.seasonMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #1e1e1e;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.seasonMenuItem {
+  width: 100%;
+  padding: 14px 18px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  color: #aaa;
+  font-size: 14px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+
+.seasonMenuItem:last-child {
+  border-bottom: none;
+}
+
+.seasonMenuItem:active,
+.seasonMenuItemActive {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── Episode list ── */
+.episodeList {
+  display: flex;
+  flex-direction: column;
+}
+
+.episodeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  color: #fff;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s;
+}
+
+.episodeRow:last-child {
+  border-bottom: none;
+}
+
+.episodeRow:active {
+  background: rgba(255,255,255,0.04);
+}
+
+.episodeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.episodeNum {
+  font-size: 12px;
+  color: #888;
+  font-weight: 500;
+}
+
+.episodeName {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.episodeMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding-left: 12px;
+}
+
+.episodeRuntime {
+  font-size: 12px;
+  color: #666;
+}
+
+.watchedDot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Desktop */
 @media (min-width: 769px) {
   .page {
