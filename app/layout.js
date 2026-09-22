@@ -3,6 +3,10 @@ import Script from "next/script";
 
 export const viewport = {
   themeColor: "#e50914",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -29,6 +33,13 @@ export const metadata = {
   },
   icons: {
     icon: "/watchio-logo.png",
+    apple: "/watchio-logo.png",
+  },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Watchio",
   },
 };
 

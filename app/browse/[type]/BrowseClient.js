@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Navbar from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
+import BottomNav from "../../../components/BottomNav/BottomNav";
 import styles from "./Browse.module.css";
 
 export default function BrowseClient({ type, category, initialContent, initialPage, title }) {
@@ -44,7 +45,7 @@ export default function BrowseClient({ type, category, initialContent, initialPa
         <div className={styles.browseGrid}>
           {content.map((item) => (
             <Link
-              href={`/player/${type === "tv" ? "tv" : "movie"}/${item.id}`}
+              href={`/detail/${type === "tv" ? "tv" : "movie"}/${item.id}`}
               className={styles.browseCard}
               key={item.id}
             >
@@ -95,6 +96,7 @@ export default function BrowseClient({ type, category, initialContent, initialPa
         </div>
       </div>
       <Footer />
+      <BottomNav />
     </div>
   );
 }

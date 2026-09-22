@@ -3,6 +3,7 @@
   padding: 20px 6%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -10,7 +11,7 @@
   color: #e5e5e5;
   background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 10%, transparent);
   z-index: 1001;
-  margin-bottom: 30px;
+  transition: background 0.3s;
 }
 
 .navbarLeft {
@@ -27,6 +28,11 @@
 
 .navbarMenu li {
   cursor: pointer;
+  transition: color 0.2s;
+}
+
+.navbarMenu li:hover {
+  color: #fff;
 }
 
 .navbarRight {
@@ -46,6 +52,7 @@
 
 .navDark {
   background: #141414;
+  background-image: none;
 }
 
 .menuOverlay {
@@ -68,14 +75,16 @@
   display: none;
   flex-direction: column;
   cursor: pointer;
-  gap: 4px;
-  padding: 5px;
+  gap: 5px;
+  padding: 6px;
   z-index: 1003;
+  background: rgba(0,0,0,0.4);
+  border-radius: 8px;
 }
 
 .hamburger span {
-  width: 25px;
-  height: 3px;
+  width: 22px;
+  height: 2px;
   background: #e5e5e5;
   border-radius: 2px;
   transition: all 0.3s ease;
@@ -94,35 +103,62 @@
   transform: rotate(-45deg) translate(7px, -7px);
 }
 
+/* Profile icon button */
+.profileBtn {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.4);
+  border: none;
+  color: #e5e5e5;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 768px) {
   .navbar {
-    padding: 15px 4%;
+    padding: 0 4%;
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-bottom: 12px;
+    background-image: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 100%);
   }
 
   .navbarLeft {
-    gap: 20px;
+    gap: 0;
     width: 100%;
+    justify-content: center;
+  }
+
+  /* Show logo centered on mobile */
+  .logo {
+    display: block;
   }
 
   .hamburger {
-    display: flex;
-    margin-left: auto;
+    display: none;
   }
 
+  .profileBtn {
+    display: none;
+  }
+
+  /* Hide desktop nav links */
   .navbarMenu {
     position: fixed;
-    top: 70px;
+    top: 60px;
     left: -100%;
     width: 70%;
-    max-width: 300px;
-    height: calc(100vh - 70px);
-    background: rgba(0, 0, 0, 0.98);
+    max-width: 280px;
+    height: calc(100vh - 60px);
+    background: rgba(10, 10, 10, 0.98);
     flex-direction: column;
-    padding: 30px 20px;
-    gap: 25px;
+    padding: 24px 20px;
+    gap: 0;
     transition: left 0.3s ease;
     z-index: 1001;
-    border-right: 1px solid #333;
+    border-right: 1px solid #222;
   }
 
   .navbarMenu.active {
@@ -130,14 +166,20 @@
   }
 
   .navbarMenu li {
-    font-size: 16px;
-    padding: 10px 0;
-    border-bottom: 1px solid #333;
+    font-size: 15px;
+    padding: 14px 0;
+    border-bottom: 1px solid #222;
+    color: #ccc;
+  }
+
+  /* Hide desktop search icon — bottom nav has it */
+  .navbarRight {
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
   .navbar {
-    padding: 10px 3%;
+    padding: 10px 4%;
   }
 }

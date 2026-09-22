@@ -36,20 +36,7 @@ export default function Navbar() {
         <div className={styles.menuOverlay} onClick={() => setMenuOpen(false)} />
       )}
       <div className={styles.navbarLeft}>
-        <Image
-          src={logo}
-          alt="Watchio logo"
-          width={90}
-          height={32}
-          onClick={() => navigate("/")}
-          style={{ cursor: "pointer", objectFit: "contain" }}
-        />
-        <ul className={menuOpen ? `${styles.navbarMenu} ${styles.active}` : styles.navbarMenu}>
-          <li onClick={() => navigate("/")}>Home</li>
-          <li onClick={() => navigate("/browse/tv?category=popular")}>TV Shows</li>
-          <li onClick={() => navigate("/browse/movies?category=popular")}>Movies</li>
-          <li onClick={() => navigate("/browse/movies?category=now_playing")}>New &amp; Popular</li>
-        </ul>
+        {/* Hamburger — mobile only */}
         <div
           className={menuOpen ? `${styles.hamburger} ${styles.active}` : styles.hamburger}
           onClick={() => setMenuOpen(!menuOpen)}
@@ -58,7 +45,32 @@ export default function Navbar() {
           <span />
           <span />
         </div>
+
+        <Image
+          src={logo}
+          alt="Watchio logo"
+          width={90}
+          height={32}
+          onClick={() => navigate("/")}
+          className={styles.logo}
+          style={{ cursor: "pointer", objectFit: "contain" }}
+        />
+
+        <ul className={menuOpen ? `${styles.navbarMenu} ${styles.active}` : styles.navbarMenu}>
+          <li onClick={() => navigate("/")}>Home</li>
+          <li onClick={() => navigate("/browse/tv?category=popular")}>TV Shows</li>
+          <li onClick={() => navigate("/browse/movies?category=popular")}>Movies</li>
+          <li onClick={() => navigate("/browse/movies?category=now_playing")}>New &amp; Popular</li>
+        </ul>
+
+        {/* Profile icon — mobile only */}
+        <button className={styles.profileBtn} onClick={() => navigate("/search")} aria-label="Profile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+          </svg>
+        </button>
       </div>
+
       <div className={styles.navbarRight}>
         <Image
           src={search_icon}

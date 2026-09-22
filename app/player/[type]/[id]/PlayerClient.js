@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import styles from "./Player.module.css";
-import logo from "../../../../public/assets/logo.png";
 
 export default function PlayerClient() {
   const { type, id } = useParams();
@@ -93,6 +92,13 @@ export default function PlayerClient() {
   return (
     <div className={styles.player} onMouseMove={resetHideTimer} onTouchStart={resetHideTimer}>
 
+      {/* Mobile-only permanent back button */}
+      <button className={styles.mobileBackBtn} onClick={() => router.back()} aria-label="Go back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <path d="M19 12H5M12 5l-7 7 7 7" />
+        </svg>
+      </button>
+
       {/* Top bar */}
       <div className={`${styles.topBar} ${controlsVisible ? styles.visible : ""}`}>
         <button className={styles.backBtn} onClick={() => router.back()} title="Go back">
@@ -103,7 +109,6 @@ export default function PlayerClient() {
         </button>
 
         <div className={styles.topTitle}>
-          <Image src={logo} alt="logo" width={80} height={28} style={{ objectFit: "contain" }} />
           {title}
           {mediaType === "tv" && ` · S${selectedSeason} E${selectedEpisode}`}
         </div>

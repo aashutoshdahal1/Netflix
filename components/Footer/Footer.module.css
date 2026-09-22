@@ -1,5 +1,5 @@
 .footer {
-  padding: 30px 4%;
+  padding: 16px 4% 24px;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -11,7 +11,7 @@
 .footerIcons {
   display: flex;
   gap: 20px;
-  margin: 40px 0;
+  margin: 16px 0;
 }
 
 .fixedYoutubeBtn {

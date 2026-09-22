@@ -1,0 +1,235 @@
+.loading {
+  height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #333;
+  border-top-color: #e50914;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Page layout ── */
+.page {
+  min-height: 100vh;
+  background: #0d0d0d;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Poster (top ~55%) ── */
+.posterWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  max-height: 62vh;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.poster {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.posterGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15) 0%,
+    transparent 40%,
+    rgba(13,13,13,0.85) 85%,
+    rgba(13,13,13,1) 100%
+  );
+}
+
+/* Back button */
+.backBtn {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  left: 16px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Top-right action buttons */
+.topActions {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.actionBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Info card ── */
+.infoCard {
+  flex: 1;
+  padding: 20px 20px 40px;
+  position: relative;
+  margin-top: -20px;
+  background: #0d0d0d;
+  border-radius: 20px 20px 0 0;
+}
+
+.hdBadge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.5px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 6px;
+  line-height: 1.15;
+  padding-right: 50px;
+}
+
+.genres {
+  font-size: 13px;
+  color: #aaa;
+  margin: 0 0 10px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #ffd700;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.dot {
+  color: #555;
+}
+
+.overview {
+  font-size: 13px;
+  color: #bbb;
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+
+.moreBtn {
+  background: none;
+  border: none;
+  color: #e50914;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+/* ── Buttons ── */
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.watchBtn {
+  flex: 1;
+  padding: 14px 0;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.watchBtn:active {
+  background: rgba(255,255,255,0.85);
+}
+
+.trailerBtn {
+  flex: 1;
+  padding: 14px 0;
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.trailerBtn:active {
+  border-color: #fff;
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  .page {
+    max-width: 480px;
+    margin: 0 auto;
+    box-shadow: 0 0 80px rgba(0,0,0,0.8);
+  }
+
+  .posterWrap {
+    max-height: 70vh;
+  }
+}
