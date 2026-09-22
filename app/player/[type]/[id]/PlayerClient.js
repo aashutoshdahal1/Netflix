@@ -140,7 +140,7 @@ export default function PlayerClient() {
         frameBorder="0"
         allowFullScreen
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-        referrerPolicy="origin"
+        referrerPolicy="no-referrer"
         className={styles.playerIframe}
         style={{ pointerEvents: infoOpen ? "none" : "auto" }}
       />
