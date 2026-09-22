@@ -54,15 +54,54 @@ export default function PlayerClient() {
     return () => clearTimeout(hideTimer.current);
   }, [resetHideTimer]);
 
+  // Block iframe ad redirects and popups at the parent window level
+  useEffect(() => {
+    // Override window.open so popup ads opened by the iframe are swallowed
+    const origOpen = window.open;
+    window.open = function (url, ...args) {
+      try {
+        if (url) {
+          const u = new URL(url, location.href);
+          // Allow only same-origin windows (e.g. fullscreen helpers)
+          if (u.origin !== location.origin) return null;
+        }
+      } catch { return null; }
+      return origOpen.apply(this, [url, ...args]);
+    };
+
+    // Block any attempt by the iframe to navigate the top-level page
+    const blockNav = (e) => {
+      // beforeunload fires when the page is about to be replaced
+      // If user didn't click anything meaningful, it's an ad redirect — cancel it
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    // Watch for the iframe trying to change window.location via click events
+    const handleBlur = () => {
+      // When the window loses focus to the iframe, regain it immediately
+      // This prevents "click to navigate" ad traps
+      setTimeout(() => window.focus(), 100);
+    };
+
+    window.addEventListener("beforeunload", blockNav);
+    window.addEventListener("blur", handleBlur);
+
+    return () => {
+      window.open = origOpen;
+      window.removeEventListener("beforeunload", blockNav);
+      window.removeEventListener("blur", handleBlur);
+    };
+  }, []);
+
   const getVideoUrl = () => {
     const encoded = process.env.NEXT_PUBLIC_VIDEO_SOURCE;
     if (!encoded) return "about:blank";
     let baseUrl;
     try { baseUrl = atob(encoded); } catch { return "about:blank"; }
-    const embedUrl = mediaType === "tv"
+    return mediaType === "tv"
       ? `${baseUrl}/tv/${id}/${selectedSeason}/${selectedEpisode}`
       : `${baseUrl}/movie/${id}`;
-    return `/api/proxy?url=${encodeURIComponent(embedUrl)}`;
   };
 
   const handleFullscreen = () => {

@@ -10,6 +10,20 @@ const nextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/player/:path*",
+        headers: [
+          {
+            // Prevent iframes embedded in the player page from navigating the top frame
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'self'; frame-src *;",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
