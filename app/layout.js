@@ -32,8 +32,8 @@ export const metadata = {
     images: ["/watchio-logo.png"],
   },
   icons: {
-    icon: "/watchio-logo.png",
-    apple: "/watchio-logo.png",
+    icon: "/watchio-icon.svg",
+    apple: "/watchio-icon.svg",
   },
   manifest: "/manifest.json",
   appleWebApp: {
