@@ -141,6 +141,7 @@ export default function PlayerClient() {
         allowFullScreen
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
         referrerPolicy="no-referrer"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-fullscreen"
         className={styles.playerIframe}
         style={{ pointerEvents: infoOpen ? "none" : "auto" }}
       />
