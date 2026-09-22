@@ -59,9 +59,10 @@ export default function PlayerClient() {
     if (!encoded) return "about:blank";
     let baseUrl;
     try { baseUrl = atob(encoded); } catch { return "about:blank"; }
-    return mediaType === "tv"
+    const embedUrl = mediaType === "tv"
       ? `${baseUrl}/tv/${id}/${selectedSeason}/${selectedEpisode}`
       : `${baseUrl}/movie/${id}`;
+    return `/api/proxy?url=${encodeURIComponent(embedUrl)}`;
   };
 
   const handleFullscreen = () => {
@@ -141,7 +142,6 @@ export default function PlayerClient() {
         allowFullScreen
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
         referrerPolicy="no-referrer"
-        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-fullscreen"
         className={styles.playerIframe}
         style={{ pointerEvents: infoOpen ? "none" : "auto" }}
       />
